@@ -63,6 +63,14 @@ const SignUpScreen = (props: Props) => {
         <TouchableOpacity style={styles.button} onPress={() => console.log('Sign Up')}>
           <Text style={styles.buttonText}>Create Account</Text>
         </TouchableOpacity>
+
+        {/* Already Have an Account Section */}
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Already have an account?</Text>
+          <TouchableOpacity onPress={() => router.push('/signin')}>
+            <Text style={styles.signInText}> Sign In</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
@@ -107,6 +115,19 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  footer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  footerText: {
+    fontSize: 16,
+    color: '#555',
+  },
+  signInText: {
+    fontSize: 16,
+    color: Colors.primary,
     fontWeight: 'bold',
   },
 });
