@@ -70,18 +70,16 @@ const SignInScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Navigate to App Home Screen */}
-        <View style={styles.homeContainer}>
-          <Text style={styles.homeText}>SignIn Screen</Text>
-          <TouchableOpacity
-            onPress={() => {
-              router.dismissAll();
-              router.push('/(tabs)');
-            }}
-          >
-            <Text style={styles.goToHomeText}>Go to App Home Screen</Text>
-          </TouchableOpacity>
-        </View>
+        {/* Go to App Home Screen */}
+        <TouchableOpacity
+          style={[styles.button, { marginTop: 20, backgroundColor: Colors.primary }]}
+          onPress={() => {
+            router.dismissAll();
+            router.push('/(tabs)');
+          }}
+        >
+          <Text style={styles.buttonText}>Home Screen</Text>
+        </TouchableOpacity>
       </View>
     </>
   );
@@ -142,20 +140,6 @@ const styles = StyleSheet.create({
     color: '#555',
   },
   signUpText: {
-    fontSize: 16,
-    color: Colors.primary,
-    fontWeight: 'bold',
-  },
-  homeContainer: {
-    marginTop: 40,
-    alignItems: 'center',
-  },
-  homeText: {
-    fontSize: 18,
-    color: '#555',
-    marginBottom: 10,
-  },
-  goToHomeText: {
     fontSize: 16,
     color: Colors.primary,
     fontWeight: 'bold',
