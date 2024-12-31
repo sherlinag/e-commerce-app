@@ -105,37 +105,38 @@ const HomePage = () => {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Header Section */}
-      <View style={styles.header}>
-      <Text style={styles.headerTitle}>ShopX</Text>
+    <View style={styles.container}>
+      {/* Fixed Header Section */}
+      <View style={styles.fixedHeader}>
+        <Text style={styles.headerTitle}>ShopX</Text>
         <TouchableOpacity onPress={toggleMenu}>
           <Ionicons name="menu" size={30} color="#333" />
         </TouchableOpacity>
-       
-        {/* Removed Cart Icon */}
       </View>
 
-      {/* Categories Section */}
-      <Text style={styles.sectionTitle}>Browse by Categories</Text>
-      <FlatList
-        data={categories}
-        keyExtractor={(item) => item.id}
-        renderItem={renderCategoryItem}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.categoriesList}
-      />
+      {/* Scrollable Content */}
+      <ScrollView style={styles.scrollContent}>
+        {/* Categories Section */}
+        <Text style={styles.sectionTitle}>Browse by Categories</Text>
+        <FlatList
+          data={categories}
+          keyExtractor={(item) => item.id}
+          renderItem={renderCategoryItem}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.categoriesList}
+        />
 
-      {/* Featured Products Section */}
-      <Text style={styles.sectionTitle}>Featured Products</Text>
-      <FlatList
-        data={products}
-        keyExtractor={(item) => item.id}
-        renderItem={renderProductItem}
-        numColumns={2}
-        contentContainerStyle={styles.productsList}
-      />
+        {/* Featured Products Section */}
+        <Text style={styles.sectionTitle}>Featured Products</Text>
+        <FlatList
+          data={products}
+          keyExtractor={(item) => item.id}
+          renderItem={renderProductItem}
+          numColumns={2}
+          contentContainerStyle={styles.productsList}
+        />
+      </ScrollView>
 
       {/* Menu Modal */}
       {menuVisible && (
@@ -148,6 +149,10 @@ const HomePage = () => {
           <TouchableWithoutFeedback onPress={closeMenu}>
             <View style={styles.overlay}>
               <View style={styles.menuContainer}>
+                {/* Close Button */}
+                <TouchableOpacity onPress={closeMenu} style={styles.closeButton}>
+                  <Ionicons name="close" size={30} color="#333" />
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
                   <Text style={styles.menuText}>Home</Text>
                 </TouchableOpacity>
@@ -158,6 +163,9 @@ const HomePage = () => {
                   <Text style={styles.menuText}>Notifications</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                  <Text style={styles.menuText}>Cart</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
                   <Text style={styles.menuText}>Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -165,7 +173,7 @@ const HomePage = () => {
           </TouchableWithoutFeedback>
         </Modal>
       )}
-    </ScrollView>
+    </View>
   );
 };
 
@@ -173,21 +181,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-    padding: 10,
   },
-  header: {
+  fixedHeader: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: "#fff",
+    padding: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingBottom: 15,
-    marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#333",
+    color: "#00008b",
+    marginLeft: 10,
+  },
+  scrollContent: {
+    marginTop: 50, // Adjust this based on your header height
+    padding: 10,
   },
   sectionTitle: {
     fontSize: 18,
@@ -197,6 +214,7 @@ const styles = StyleSheet.create({
   },
   categoriesList: {
     marginBottom: 20,
+    paddingLeft: 10,
   },
   categoryCard: {
     alignItems: "center",
@@ -220,16 +238,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   productsList: {
-    paddingBottom: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 5,
   },
   productCard: {
     flex: 1,
-    margin: 10,
+    margin: 7,
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 10,
     elevation: 3,
     alignItems: "center",
+    justifyContent: "space-between",
   },
   productImage: {
     width: "100%",
@@ -238,7 +258,7 @@ const styles = StyleSheet.create({
   },
   productTitle: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     color: "#333",
   },
@@ -249,7 +269,8 @@ const styles = StyleSheet.create({
   },
   productButton: {
     backgroundColor: "#007bff",
-    padding: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 5,
     marginTop: 10,
   },
@@ -270,6 +291,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     height: "100%",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 20,
+    right: 20,
   },
   menuItem: {
     paddingVertical: 15,

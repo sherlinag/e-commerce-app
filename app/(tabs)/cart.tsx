@@ -6,7 +6,10 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Modal,
+  TouchableWithoutFeedback,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const initialCartItems = [
   {
@@ -34,6 +37,7 @@ const initialCartItems = [
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState(initialCartItems);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const handleIncreaseQuantity = (id: string) => {
     const updatedCart = cartItems.map((item) =>
@@ -52,7 +56,17 @@ const CartPage = () => {
   };
 
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    return cartItems
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toFixed(2);
+  };
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const closeMenu = () => {
+    setMenuVisible(false);
   };
 
   const renderCartItem = ({ item }: { item: { id: string; title: string; price: number; quantity: number; image: string } }) => (
@@ -82,6 +96,45 @@ const CartPage = () => {
 
   return (
     <View style={styles.container}>
+      {/* Fixed Header Section */}
+      <View style={styles.fixedHeader}>
+        <Text style={styles.headerTitle}>ShopX</Text>
+        <TouchableOpacity onPress={toggleMenu}>
+          <Ionicons name="menu" size={30} color="#333" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Menu Modal */}
+      {menuVisible && (
+        <Modal transparent={true} animationType="slide" visible={menuVisible} onRequestClose={closeMenu}>
+          <TouchableWithoutFeedback onPress={closeMenu}>
+            <View style={styles.overlay}>
+              <View style={styles.menuContainer}>
+                <TouchableOpacity onPress={closeMenu} style={styles.closeButton}>
+                  <Ionicons name="close" size={30} color="#333" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                  <Text style={styles.menuText}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                  <Text style={styles.menuText}>Explore</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                  <Text style={styles.menuText}>Notifications</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                  <Text style={styles.menuText}>Cart</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                  <Text style={styles.menuText}>Profile</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      )}
+
+      {/* Cart Items */}
       <Text style={styles.header}>Your Cart</Text>
       <FlatList
         data={cartItems}
@@ -104,12 +157,60 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f5f5f5",
   },
-  header: {
+  fixedHeader: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: "#fff",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    margin: 15,
-    textAlign: "center",
+    color: "#00008b",
+    marginLeft: 10,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
     color: "#333",
+    marginTop: 65,
+    marginVertical: 20,
+    textAlign: "center",
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "flex-end",
+  },
+  menuContainer: {
+    backgroundColor: "#fff",
+    width: 250,
+    padding: 20,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    height: "100%",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+  },
+  menuItem: {
+    paddingVertical: 15,
+  },
+  menuText: {
+    fontSize: 18,
+    color: "#333",
+    fontWeight: "bold",
   },
   cartList: {
     paddingBottom: 20,

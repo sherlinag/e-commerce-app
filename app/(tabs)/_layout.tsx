@@ -25,7 +25,7 @@ export default function TabLayout() {
       }} />
       <Tabs.Screen name='cart' options={{
         title: 'Cart',
-        tabBarBadge: 1 ,
+        tabBarBadge: 3,
         tabBarIcon: ({color}) => (
           <Ionicons name='cart-outline' size={22} color={color} />
         )
