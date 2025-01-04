@@ -84,12 +84,7 @@ const NotificationPage = () => {
 
       {/* Menu Modal */}
       {menuVisible && (
-        <Modal
-          transparent={true}
-          animationType="slide"
-          visible={menuVisible}
-          onRequestClose={closeMenu}
-        >
+        <Modal transparent={true} animationType="slide" visible={menuVisible} onRequestClose={closeMenu}>
           <TouchableWithoutFeedback onPress={closeMenu}>
             <View style={styles.overlay}>
               <View style={styles.menuContainer}>
