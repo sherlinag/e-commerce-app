@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#00008b",
     marginLeft: 5,
-    marginRight: 522,
+    marginRight: 476,
   },
   overlay: {
     flex: 1,
