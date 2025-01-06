@@ -52,8 +52,8 @@ const NotificationPage = () => {
   };
 
   // Handle notification press
-  const handleNotificationPress = (id: string) => {
-    console.log(`Navigating to notification ${id} details`);
+  const handleNotificationPress = (id: any) => {
+    console.log(`Notification ${id} clicked`);
   };
 
   const renderNotification = ({ item }: { item: { id: string; title: string; description: string; timestamp: string } }) => (
@@ -74,7 +74,7 @@ const NotificationPage = () => {
 
   return (
     <View style={styles.container}>
-      {/* Fixed Header Section */}
+      {/* Fixed Header */}
       <View style={styles.fixedHeader}>
         <Text style={styles.headerTitle}>ShopX</Text>
         <TouchableOpacity onPress={toggleMenu}>
@@ -88,23 +88,22 @@ const NotificationPage = () => {
           <TouchableWithoutFeedback onPress={closeMenu}>
             <View style={styles.overlay}>
               <View style={styles.menuContainer}>
-                {/* Close Button */}
                 <TouchableOpacity onPress={closeMenu} style={styles.closeButton}>
                   <Ionicons name="close" size={30} color="#333" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                <TouchableOpacity style={styles.menuItem}>
                   <Text style={styles.menuText}>Home</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                <TouchableOpacity style={styles.menuItem}>
                   <Text style={styles.menuText}>Explore</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                <TouchableOpacity style={styles.menuItem}>
                   <Text style={styles.menuText}>Notifications</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                <TouchableOpacity style={styles.menuItem}>
                   <Text style={styles.menuText}>Cart</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={closeMenu}>
+                <TouchableOpacity style={styles.menuItem}>
                   <Text style={styles.menuText}>Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -114,7 +113,6 @@ const NotificationPage = () => {
       )}
 
       {/* Notifications List */}
-      <Text style={styles.header}>Notifications</Text>
       <FlatList
         data={notifications}
         keyExtractor={(item) => item.id}
@@ -129,14 +127,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-    paddingTop: 50, // Ensures space for the fixed header
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-    marginVertical: 20,
-    textAlign: "center",
+    paddingTop: 50, // Space for the fixed header
   },
   fixedHeader: {
     position: "absolute",
@@ -157,8 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#00008b",
-    marginLeft: 5,
-    marginRight: 476,
+    marginLeft: 10,
   },
   overlay: {
     flex: 1,
